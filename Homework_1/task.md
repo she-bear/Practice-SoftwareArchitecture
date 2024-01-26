@@ -1,3 +1,4 @@
-![](https://disk.yandex.ru/i/XH30i-q6sS3yPg)
+![](task_1.png)
 
-![](https://disk.yandex.ru/i/6CuHvFjNohOYRg)
+
+![](Dependences.png)
