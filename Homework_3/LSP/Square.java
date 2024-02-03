@@ -4,7 +4,7 @@ package LSP;
 public class Square extends QuadRangle {
     public int length;
 
-    public Square(int length, int width){
+    public Square(int length){
         this.length = length;
     }
 
