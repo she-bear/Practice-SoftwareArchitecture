@@ -1,0 +1,33 @@
+Order {
+	id integer
+	price integer
+	id_user integer *> User.id
+	id_server integer *> Server.id
+	date date
+	time time
+	RAM integer
+	CPU integer
+	SSD integer
+	id_os integer *> OS.id
+	ip_address string
+}
+
+User {
+	id integer pk increments
+	name string
+	hash_pwd string
+	email string
+}
+
+Server {
+	id integer pk increments
+	CPU integer
+	RAM integer
+	SSD integer
+	idOS integer *> OS.id
+}
+
+OS {
+	id integer pk increments
+	osName string
+}
