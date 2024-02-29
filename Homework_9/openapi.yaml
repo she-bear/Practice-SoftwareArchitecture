@@ -1,0 +1,335 @@
+openapi: 3.0.3
+# общее описание API
+info:
+  title: Order cloud resources
+  version: 0.0.1
+servers:
+
+# ссылок может быть несколько
+  - url: http://localhost:8080/api/v1
+    description: Dev server
+  - url: http://localhost:8080/api/v2
+    description: Dev server New
+    
+# Возможные запросы к серверу
+paths:
+  /clouds:
+    get:
+      summary: Get All Servers
+      tags: 
+        - Clouds
+      operationId: getAllClouds
+      responses:
+        "200":
+          description: Successfully 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Clouds"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+    post:
+      summary: Add Server
+      tags: 
+        - Clouds
+      operationId: addCloud
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cloud" 
+      responses:
+        "200":
+          description: Successfully 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Clouds"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /clouds/{cloud_id}:
+    get:
+      summary: Get Server by ID
+      tags:
+        - Clouds
+      operationId: getCloudById
+      parameters:
+        - name: cloud_id
+          in: path
+          required: true
+          description: Cloud ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cloud"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+    delete:
+      summary: Delete Server by ID
+      tags:
+        - Clouds
+      operationId: deleteCloudById
+      parameters:
+        - name: cloud_id
+          in: path
+          required: true
+          description: Cloud ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /clients:
+    get:
+      summary: Get All Clients
+      tags: 
+        - Clients
+      operationId: getAllClients
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Clients"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Add Client
+      tags: 
+        - Clients
+      operationId: addClient
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client" 
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"    
+                
+  /clients/{id_client}:
+    get:
+      summary: Get Client by ID
+      tags:
+        - Clients
+      operationId: getClientId
+      parameters:
+        - name: id_client
+          in: path
+          required: true
+          description: Client ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update Client by ID
+      tags:
+        - Clients
+      operationId: updateClientById
+      parameters:
+        - name: id_client
+          in: path
+          required: true
+          description: Client ID
+          schema:
+                $ref: "#/components/schemas/Client"
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Client by ID
+      tags:
+        - Clients
+      operationId: deleteClientById
+      parameters:
+        - name: id_client
+          in: path
+          required: true
+          description: Client ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json: {}
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"            
+    
+                
+# компоненты, с которыми планируем работать
+components:
+  schemas:
+    Cloud:
+      type: object
+      required:
+        - cloud_id
+        - RAM
+        - CPU
+        - SSD
+        - OS
+      properties:
+        cloud_id:
+          type: integer
+          example: 1123
+          description: Cloud ID
+        RAM:
+          type: integer
+          example: 16
+          description: Random Access Memory
+        CPU:
+          type: integer
+          example: 2
+          description: Number of Cores
+        SSD:
+          type: integer
+          example: 512
+          description: SSD Memory
+        OS:
+          type: string
+          enum:
+            - Windows
+            - Linux
+            - MacOS
+          description: Operation System  
+    
+    Clouds:
+      type: array
+      items:
+        $ref: "#/components/schemas/Cloud"
+        
+    Client:
+      type: object
+      required:
+        - client_id
+        - name
+        - email
+      properties:
+        client_id:
+          type: integer 
+          example: 1560
+          description: Client ID
+        name:
+          type: string
+          example: Tomas Mann
+          description: Client name
+        email:
+          type: string
+          example: tomas_mann@post.com
+          description: Client email
+    
+    Clients:
+      type: array
+      items:
+        $ref: "#/components/schemas/Client"    
+    
+    Error:
+      type: object
+      required:
+        - codeError
+        - messageError
+      properties:
+        code_error:
+          type: integer
+          example: 28
+          description: Error Code
+        message_error:
+          type: string
+          example: error
+          description: Error Message
