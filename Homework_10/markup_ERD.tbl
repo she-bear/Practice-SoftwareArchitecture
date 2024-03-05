@@ -1,0 +1,37 @@
+User {
+	id integer pk increments unique
+	login varchar
+	hash_pwd varchar
+	name varchar
+	email varchar
+}
+
+Group {
+	id integer pk increments unique
+	id_user1 integer >* User.id
+	id_user2 integer >* User.id
+	id_user3 integer >* User.id
+}
+
+Robot {
+	id integer pk increments unique
+	id_Grop integer *> Group.id
+	serial_number integer
+	model integer
+	version integer
+	status integer
+	ip_addr integer
+	mac_addr integer
+}
+
+Schedule {
+	id integer pk increments unique
+	id_robot integer >* Robot.id
+	date_time datetime
+	mode integer > Cleaning_Mode.id
+}
+
+Cleaning_Mode {
+	id integer pk increments unique
+	type integer
+}
