@@ -1,3 +1,14 @@
+Robot {
+	id integer pk increments unique
+	id_Grop integer *> Group.id
+	serial_number integer
+	model varchar
+	version varchar
+	status integer
+	ip_addr varchar
+	mac_addr varchar
+}
+
 User {
 	id integer pk increments unique
 	login varchar
@@ -13,17 +24,6 @@ Group {
 	id_user3 integer >* User.id
 }
 
-Robot {
-	id integer pk increments unique
-	id_Grop integer *> Group.id
-	serial_number integer
-	model integer
-	version integer
-	status integer
-	ip_addr integer
-	mac_addr integer
-}
-
 Schedule {
 	id integer pk increments unique
 	id_robot integer >* Robot.id
@@ -35,3 +35,4 @@ Cleaning_Mode {
 	id integer pk increments unique
 	type integer
 }
+
