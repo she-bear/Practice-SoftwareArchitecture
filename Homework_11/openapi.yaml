@@ -1,0 +1,442 @@
+openapi: 3.0.3
+# общее описание API
+info:
+  title: Vacuum Cleaner API
+  version: 0.0.1
+servers:
+
+# ссылок может быть несколько
+  - url: http://localhost:8080/api/v1
+    description: Dev server
+  - url: http://localhost:8080/api/v2
+    description: Dev server New
+    
+# Возможные запросы к серверу
+paths:
+  /robots:
+    get:
+      summary: Get All Robots
+      tags: 
+        - Robots
+      operationId: getAllRobots
+      responses:
+        "200":
+          description: Successfully 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Robots"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+    post:
+      summary: Add Robot
+      tags: 
+        - Robots
+      operationId: addRobot
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Robot" 
+      responses:
+        "200":
+          description: Successfully 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Robots"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /robots/{robot_id}:
+    get:
+      summary: Get Robot by ID
+      tags:
+        - Robots
+      operationId: getRobotById
+      parameters:
+        - name: robot_id
+          in: path
+          required: true
+          description: Robot ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Robot"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+    delete:
+      summary: Delete Robot by ID
+      tags:
+        - Robots
+      operationId: deleteRobotById
+      parameters:
+        - name: robot_id
+          in: path
+          required: true
+          description: Robot ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json: {}
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /users:
+    get:
+      summary: Get All Users
+      tags: 
+        - Users
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Add User
+      tags: 
+        - Users
+      operationId: addUser
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User" 
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"    
+                
+  /users/{id_user}:
+    get:
+      summary: Get User by ID
+      tags:
+        - Users
+      operationId: getUserId
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          description: User ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update User by ID
+      tags:
+        - Users
+      operationId: updateUserById
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          description: User ID
+          schema:
+                $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete User by ID
+      tags:
+        - Users
+      operationId: deleteUserById
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          description: User ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json: {}
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"            
+                
+  /schedules:
+    get:
+      summary: Get All Schedules
+      tags: 
+        - Schedules
+      operationId: getAllSchedules
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  
+  /schedules/{id_schedule}:
+    get:
+      summary: Get Schedule by ID
+      tags:
+        - Schedules
+      operationId: getScheduleId
+      parameters:
+        - name: id_schedule
+          in: path
+          required: true
+          description: Schedule ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Schedule"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+    put:
+      summary: Update Schedule by ID
+      tags:
+        - Schedules
+      operationId: updateScheduleById
+      parameters:
+        - name: id_schedule
+          in: path
+          required: true
+          description: Schedule ID
+          schema:
+                $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Schedule by ID
+      tags:
+        - Schedules
+      operationId: deleteScheduleById
+      parameters:
+        - name: id_schedule
+          in: path
+          required: true
+          description: Schedule ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json: {}
+        "default":
+          description: Everything else
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"            
+    
+                
+# компоненты, с которыми планируем работать
+components:
+  schemas:
+    Robot:
+      type: object
+      required:
+        - robot_id
+        - serial_number
+        - model
+        - version
+        - status
+        - ip_addr
+        - mac_addr
+      properties:
+        robot_id:
+          type: integer
+          example: 1123
+          description: Robot ID
+        serial_number:
+          type: string
+          example: AA1-AA-AAA1111A
+          description: Serial Number
+        model:
+          type: string
+          example: Roborock Q5+
+          description: Robot Vacuum Cleaner's Model
+        version:
+          type: string
+          example: 22.52
+          description: Robot Vacuum Cleaner's Software Version
+        status:
+          type: integer
+          example: 4
+          description: Status  
+        ip_addr:
+          type: string
+          example: 192.168.1.100
+          description: IP Address
+        mac_addr:
+          type: string
+          example: 00:11:22:33:44:55
+          description: MAC Address  
+  
+    Robots:
+      type: array
+      items:
+        $ref: "#/components/schemas/Robot"
+        
+    User:
+      type: object
+      required:
+        - user_id
+        - name
+        - email
+      properties:
+        user_id:
+          type: integer 
+          example: 1560
+          description: User ID
+        name:
+          type: string
+          example: Tomas Mann
+          description: User name
+        email:
+          type: string
+          example: tomas_mann@post.com
+          description: User email
+    
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"    
+        
+    Schedule:
+      type: object
+      required:
+        - schedule_id
+        - date_time
+        - mode
+      properties:
+        schedule_id:
+          type: integer 
+          example: 67
+          description: Schedule ID
+        date_time:
+          type: number
+          example: 1672531200000
+          description: Date and Time
+        mode:
+         type: string
+         enum:
+          - Wash
+          - Turbo
+          - Normal
+         description: Cleaning Mode
+         
+    Schedules:
+      type: array
+      items:
+        $ref: "#/components/schemas/Schedule"     
+    
+    Error:
+      type: object
+      required:
+        - codeError
+        - messageError
+      properties:
+        code_error:
+          type: integer
+          example: 28
+          description: Error Code
+        message_error:
+          type: string
+          example: error
+          description: Error Message
