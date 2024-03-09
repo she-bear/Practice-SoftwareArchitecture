@@ -229,24 +229,6 @@ paths:
                 $ref: "#/components/schemas/Error"            
                 
   /schedules:
-    get:
-      summary: Get All Schedules
-      tags: 
-        - Schedules
-      operationId: getAllSchedules
-      responses:
-        "200":
-          description: Successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Users"
-        "default":
-          description: Everything else
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   
   /schedules/{id_schedule}:
     get:
